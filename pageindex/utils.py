@@ -1,5 +1,5 @@
 import tiktoken
-import openai
+from pageindex.llm import get_llm_client
 import logging
 import os
 from datetime import datetime
@@ -19,93 +19,87 @@ from types import SimpleNamespace as config
 
 CHATGPT_API_KEY = os.getenv("CHATGPT_API_KEY")
 
+# Global semaphore to limit concurrent LLM requests
+# Set to 1 because the Ollama cloud provider is very sensitive to concurrency
+_llm_semaphore = asyncio.Semaphore(1)
+
 def count_tokens(text, model=None):
     if not text:
         return 0
-    enc = tiktoken.encoding_for_model(model)
+    try:
+        enc = tiktoken.encoding_for_model(model)
+    except (KeyError, ValueError):
+        enc = tiktoken.get_encoding("cl100k_base")
     tokens = enc.encode(text)
     return len(tokens)
 
-def ChatGPT_API_with_finish_reason(model, prompt, api_key=CHATGPT_API_KEY, chat_history=None):
+def ChatGPT_API_with_finish_reason(model, prompt, chat_history=None):
     max_retries = 10
-    client = openai.OpenAI(api_key=api_key)
+    llm = get_llm_client()
     for i in range(max_retries):
         try:
             if chat_history:
-                messages = chat_history
-                messages.append({"role": "user", "content": prompt})
+                # Use list concatenation to avoid modifying chat_history in-place
+                messages = chat_history + [{"role": "user", "content": prompt}]
             else:
                 messages = [{"role": "user", "content": prompt}]
             
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-                temperature=0,
-            )
-            if response.choices[0].finish_reason == "length":
-                return response.choices[0].message.content, "max_output_reached"
-            else:
-                return response.choices[0].message.content, "finished"
+            content = llm.chat(model=model, messages=messages)
+            # Ollama doesn't return finish_reason in the same way, assuming 'finished'
+            return content, "finished"
 
         except Exception as e:
-            print('************* Retrying *************')
+            delay = min(2**i + (0.1 * i), 30)  # Exponential backoff
+            print(f'************* Retrying in {delay:.1f}s *************')
             logging.error(f"Error: {e}")
             if i < max_retries - 1:
-                time.sleep(1)  # Wait for 1秒 before retrying
+                time.sleep(delay)
             else:
                 logging.error('Max retries reached for prompt: ' + prompt)
                 return "Error"
 
-
-
-def ChatGPT_API(model, prompt, api_key=CHATGPT_API_KEY, chat_history=None):
+def ChatGPT_API(model, prompt, chat_history=None):
     max_retries = 10
-    client = openai.OpenAI(api_key=api_key)
+    llm = get_llm_client()
     for i in range(max_retries):
         try:
             if chat_history:
-                messages = chat_history
-                messages.append({"role": "user", "content": prompt})
+                messages = chat_history + [{"role": "user", "content": prompt}]
             else:
                 messages = [{"role": "user", "content": prompt}]
             
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-                temperature=0,
-            )
-   
-            return response.choices[0].message.content
+            content = llm.chat(model=model, messages=messages)
+            return content
         except Exception as e:
-            print('************* Retrying *************')
+            delay = min(2**i + (0.1 * i), 30)
+            print(f'************* Retrying in {delay:.1f}s *************')
             logging.error(f"Error: {e}")
             if i < max_retries - 1:
-                time.sleep(1)  # Wait for 1秒 before retrying
+                time.sleep(delay)
             else:
                 logging.error('Max retries reached for prompt: ' + prompt)
                 return "Error"
             
 
-async def ChatGPT_API_async(model, prompt, api_key=CHATGPT_API_KEY):
+async def ChatGPT_API_async(model, prompt):
     max_retries = 10
     messages = [{"role": "user", "content": prompt}]
+    llm = get_llm_client()
     for i in range(max_retries):
         try:
-            async with openai.AsyncOpenAI(api_key=api_key) as client:
-                response = await client.chat.completions.create(
-                    model=model,
-                    messages=messages,
-                    temperature=0,
-                )
-                return response.choices[0].message.content
+            async with _llm_semaphore:
+                content = await llm.chat_async(model=model, messages=messages)
+                await asyncio.sleep(1) # Extra delay to avoid 429
+                return content
         except Exception as e:
-            print('************* Retrying *************')
+            delay = min(2**i + (0.1 * i), 30)
+            print(f'************* Retrying in {delay:.1f}s *************')
             logging.error(f"Error: {e}")
             if i < max_retries - 1:
-                await asyncio.sleep(1)  # Wait for 1s before retrying
+                await asyncio.sleep(delay)
             else:
                 logging.error('Max retries reached for prompt: ' + prompt)
-                return "Error"  
+                return "Error"
             
             
 def get_json_content(response):
@@ -410,8 +404,12 @@ def add_preface_if_needed(data):
 
 
 
-def get_page_tokens(pdf_path, model="gpt-4o-2024-11-20", pdf_parser="PyPDF2"):
-    enc = tiktoken.encoding_for_model(model)
+def get_page_tokens(pdf_path, model="gpt-oss:120b", pdf_parser="PyPDF2"):
+    try:
+        enc = tiktoken.encoding_for_model(model)
+    except (KeyError, ValueError):
+        enc = tiktoken.get_encoding("cl100k_base")
+        
     if pdf_parser == "PyPDF2":
         pdf_reader = PyPDF2.PdfReader(pdf_path)
         page_list = []
