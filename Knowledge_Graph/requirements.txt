@@ -1,0 +1,8 @@
+pdfplumber 
+neo4j 
+openai 
+tiktoken
+qdrant-client
+sentence-transformers 
+qdrant-client 
+python-dotenv
