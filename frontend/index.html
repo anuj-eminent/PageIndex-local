@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Model AI Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <h1>Model<span>Compare</span></h1>
+            </div>
+            <p class="subtitle">Evaluate responses from General RAG, Graph Ollama, and Page Index in parallel</p>
+        </header>
+
+        <main class="chat-container" id="chat-container">
+            <div class="empty-state" id="empty-state">
+                <div class="glass-icon">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <h2>Ask a question to begin</h2>
+                <p>Your question will be processed by three different models simultaneously.</p>
+            </div>
+            <!-- Chat exchanges will be appended here -->
+        </main>
+
+        <footer class="app-footer">
+            <form id="chat-form" class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="question-input" placeholder="Ask regarding your documents..."
+                        autocomplete="off" required>
+                    <button type="submit" id="send-button" class="send-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                    <div class="spinner" id="loading-spinner" style="display: none;"></div>
+                </div>
+            </form>
+        </footer>
+    </div>
+
+    <!-- Template for an exchange -->
+    <template id="exchange-template">
+        <div class="exchange">
+            <div class="user-message-container">
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-message"></div>
+            </div>
+
+            <div class="responses-grid">
+                <!-- General RAG Card -->
+                <div class="response-card" data-model="general_rag">
+                    <div class="card-header">
+                        <div class="model-badge general-rag">GR</div>
+                        <h3>General RAG</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="typing-indicator" style="display: none;">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="response-content"></div>
+                    </div>
+                </div>
+
+                <!-- Graph Ollama Card -->
+                <div class="response-card" data-model="grpah_ollama">
+                    <div class="card-header">
+                        <div class="model-badge graph-ollama">GO</div>
+                        <h3>Graph Ollama</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="typing-indicator" style="display: none;">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="response-content"></div>
+                    </div>
+                </div>
+
+                <!-- Page Index Card -->
+                <div class="response-card" data-model="page_index">
+                    <div class="card-header">
+                        <div class="model-badge page-index">PI</div>
+                        <h3>Page Index</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="typing-indicator" style="display: none;">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="response-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
