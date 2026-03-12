@@ -3,45 +3,64 @@ You are a knowledge graph extractor.
 
 From the text below, extract factual knowledge as triples.
 Use the format:
-(subject, relation, object)
+[["subject", "relation", "object"], ["subject", "relation", "object"], ...]
 
 Rules:
 - Subjects and objects must be concise nouns
 - Relations must be verbs or verb phrases
 - No explanations
 - Only extract explicit facts
+- Return ONLY the list of lists format
 
 Text:
 {text}
 """
 
-import openai
+import ollama
 import re
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
 def extract_triples_from_chunk(text_chunk: str):
-    llm = openai.OpenAI(api_key=os.getenv("OPEANAIKEY"))
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-mini",
+    api_key = os.getenv("OLLAMA_API_KEY")
+    host = "https://ollama.com"
+    headers = {'Authorization': f'Bearer {api_key}'} if api_key else {}
+    
+    client = ollama.Client(host=host, headers=headers)
+    
+    response = client.chat(
+        model='gpt-oss:120b', # Or any other suitable model available on Ollama cloud
         messages=[
-            {"role": "system", "content": "You extract knowledge graph triples."},
+            {"role": "system", "content": "You extract knowledge graph triples in a list of lists format."},
             {"role": "user", "content": KG_PROMPT.format(text=text_chunk)}
         ],
-        temperature=0
+        options={'temperature': 0}
     )
 
-    content = response.choices[0].message["content"]
+    content = response['message']['content']
+    import json
+    try:
+        # Try to parse the content as JSON directly
+        triples = json.loads(content)
+        if isinstance(triples, list):
+            return triples
+    except:
+        pass
 
+    # Fallback to regex if LLM doesn't return pure JSON or uses a different format
     triples = []
     for line in content.split("\n"):
-        match = re.match(r"\((.*?),\s*(.*?),\s*(.*?)\)", line)
+        match = re.search(r'\["(.*?)",\s*"(.*?)",\s*"(.*?)"\]', line)
+        if not match:
+            # Also try the old parenthetical format just in case
+            match = re.search(r"\((.*?),\s*(.*?),\s*(.*?)\)", line)
+        
         if match:
-            triples.append({
-                "subject": match.group(1).strip(),
-                "relation": match.group(2).strip(),
-                "object": match.group(3).strip()
-            })
+            triples.append([
+                match.group(1).strip().strip('"'),
+                match.group(2).strip().strip('"'),
+                match.group(3).strip().strip('"')
+            ])
 
     return triples

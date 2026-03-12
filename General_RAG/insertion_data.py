@@ -15,7 +15,6 @@ class QudrantOperation():
         self.client = QdrantClient(url=os.getenv("QUADRANT_URL"), api_key=os.getenv("QUADRANT_API_KEY"))  
         self.collection_name = collection_name
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
-        
         try:
             self.client.create_collection(
                 collection_name=self.collection_name,
@@ -57,7 +56,19 @@ class QudrantOperation():
             words.append(i.payload['text'])
         return words
     
-    def create_chunks(self, pdf_path: str = "Brain Tumor MRI.pdf"): 
+    def create_chunks(self, pdf_path): 
+        try:
+            self.client.delete_collection(collection_name=self.collection_name)
+            self.client.create_collection(
+                    collection_name=self.collection_name,
+                    vectors_config=VectorParams(
+                        size=self.model.get_sentence_embedding_dimension(),
+                        distance=Distance.COSINE
+                    )
+            )
+        except Exception:
+            pass
+              
         full_text = ""
         with pdfplumber.open(pdf_path) as pdf:
             for page in pdf.pages:

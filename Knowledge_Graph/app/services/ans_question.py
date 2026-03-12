@@ -73,6 +73,18 @@ class AnswerQuestion():
         return nodes
     
     def save_nodes_embedding(self):
+        try:
+            self.qdrant_operation.client.delete_collection(collection_name=self.qdrant_operation.collection_name)
+            self.qdrant_operation.client.create_collection(
+                    collection_name=self.qdrant_operation.collection_name,
+                    vectors_config=VectorParams(
+                        size=self.qdrant_operation.model.get_sentence_embedding_dimension(),
+                        distance=Distance.COSINE
+                    )
+            )
+        except Exception as e:
+            print(f"\n\n\n\n\ Fail to Save data \n\n {e}\n\n\n")
+
         data = self.fetch_relations()
         for node in data:
             self.qdrant_operation.save_create_embedding(node)
