@@ -56,6 +56,6 @@ class RAGQuery:
                 }
             ])
             
-            return response['message']['content']
+            return {"context": context_text, "answer": response['message']['content']}
         except Exception as e:
-            return f"\nError communicating with Ollama API: {str(e)}"
+            return {"context": context_text, "answer": f"\nError communicating with Ollama API: {str(e)}"}

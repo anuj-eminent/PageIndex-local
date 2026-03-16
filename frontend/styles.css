@@ -256,6 +256,45 @@ body {
     font-style: italic;
 }
 
+.context-details {
+    margin-bottom: 1rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 0.75rem;
+}
+
+.context-details summary {
+    cursor: pointer;
+    font-weight: 600;
+    outline: none;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.context-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.context-details summary:after {
+    content: '▾';
+    transition: transform 0.2s;
+}
+
+.context-details[open] summary:after {
+    transform: rotate(180deg);
+}
+
+.context-content {
+    margin-top: 0.75rem;
+    padding-left: 0.25rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
 /* Typing Indicator */
 .typing-indicator {
     display: flex;

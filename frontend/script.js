@@ -53,34 +53,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ question: question })
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            // Always try to parse JSON (even if status is non-OK) so we can still show useful info.
+            const data = await response.json().catch(() => null);
+            const hadHttpError = !response.ok;
+
+            if (hadHttpError) {
+                const statusText = response.statusText || response.status;
+                console.warn('API returned non-OK status', response.status, statusText, data);
             }
 
-            const data = await response.json();
+            if (!data) {
+                throw new Error('Invalid JSON response from API');
+            }
 
             // Expected response format:
             // {
             //   "question": "...",
             //   "results": {
-            //     "general_rag": "...",
-            //     "grpah_ollama": "...",
-            //     "page_index": "..."
+            //     "general_rag": {"answer":"...","context":"..."},
+            //     "grpah_ollama": {"answer":"...","context":"..."},
+            //     "page_index": {"answer":"...","context":"..."}
             //   }
             // }
 
             const results = data.results || {};
 
-            // Update each card
-            updateResponseCard(exchangeDiv, 'general_rag', results.general_rag);
-            updateResponseCard(exchangeDiv, 'grpah_ollama', results.grpah_ollama);
-            updateResponseCard(exchangeDiv, 'page_index', results.page_index);
+            // Update each card (if the API returned an error object, it will be rendered as an error message)
+            updateResponseCard(exchangeDiv, 'general_rag', results.general_rag, hadHttpError);
+            updateResponseCard(exchangeDiv, 'grpah_ollama', results.grpah_ollama, hadHttpError);
+            updateResponseCard(exchangeDiv, 'page_index', results.page_index, hadHttpError);
 
         } catch (error) {
             console.error('Error fetching data:', error);
 
             // Show error in all cards
-            const errorMsg = "Sorry, failed to get response. Is the server running?";
+            const errorMsg = error?.message ? `Error: ${error.message}` : "Sorry, failed to get response.";
             updateResponseCard(exchangeDiv, 'general_rag', errorMsg, true);
             updateResponseCard(exchangeDiv, 'grpah_ollama', errorMsg, true);
             updateResponseCard(exchangeDiv, 'page_index', errorMsg, true);
@@ -103,23 +110,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Render content
         const contentDiv = card.querySelector('.response-content');
+        const contextDiv = card.querySelector('.context-content');
 
-        if (!text) {
+        // Support response formats like:
+        // { error: "..." }
+        // { answer: "...", context: "..." }
+        // and raw string responses.
+        let answerText = '';
+        let contextText = '';
+
+        const isObject = text && typeof text === 'object' && !Array.isArray(text);
+
+        if (isObject) {
+            // If the backend returns an error object, treat it as an error response.
+            if (text.error) {
+                isError = true;
+                answerText = String(text.error);
+            }
+
+            // Normalize answer/context fields
+            answerText = answerText || String(text.answer ?? text.response ?? '');
+
+            const rawContext = text.context ?? text.ctx ?? '';
+            if (Array.isArray(rawContext)) {
+                contextText = rawContext.join('\n\n');
+            } else {
+                contextText = String(rawContext ?? '');
+            }
+        } else if (Array.isArray(text)) {
+            // If a model returns an array (e.g., list of chunks), join them
+            answerText = text.join('\n\n');
+        } else {
+            answerText = String(text ?? '');
+        }
+
+        if (!answerText) {
             contentDiv.innerHTML = '<span class="response-error">No response provided by model.</span>';
-            return;
+        } else if (isError) {
+            contentDiv.innerHTML = `<span class="response-error">${escapeHTML(answerText)}</span>`;
+        } else {
+            // Format newlines to <p> and <br> tags
+            const formattedText = answerText.split('\n\n').map(p =>
+                `<p>${p.replace(/\n/g, '<br>')}</p>`
+            ).join('');
+            contentDiv.innerHTML = formattedText;
         }
 
-        if (isError) {
-            contentDiv.innerHTML = `<span class="response-error">${escapeHTML(text)}</span>`;
-            return;
+        // Populate context (if available)
+        if (contextDiv) {
+            if (contextText) {
+                const formattedContext = contextText.split('\n\n').map(p =>
+                    `<p>${p.replace(/\n/g, '<br>')}</p>`
+                ).join('');
+                contextDiv.innerHTML = formattedContext;
+            } else {
+                contextDiv.innerHTML = 'No context available.';
+            }
         }
-
-        // Format newlines to <p> and <br> tags
-        const formattedText = text.split('\n\n').map(p =>
-            `<p>${p.replace(/\n/g, '<br>')}</p>`
-        ).join('');
-
-        contentDiv.innerHTML = formattedText;
     }
 
     function scrollToBottom() {

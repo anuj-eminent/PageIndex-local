@@ -57,10 +57,10 @@ def generate_reply_with_ollama(question: str, model_name: str = "gpt-oss:120b"):
         ])
         
         reply_content = response['message']['content']
-        return reply_content
+        return {"context": context_text, "answer": reply_content}
 
     except Exception as e:
-        return f"Error generating reply from Ollama: {str(e)}"
+        return {"context": context_text, "answer": f"Error generating reply from Ollama: {str(e)}"}
 
 if __name__ == "__main__":
     import sys

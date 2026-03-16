@@ -92,10 +92,10 @@ async def answer_question_from_structure(query: str, structure: List[Dict[str, A
                 break
     
     if not context_parts:
-        return "I couldn't find any relevant sections in the document to answer your question."
+        return {"context": context_parts, "answer": "I couldn't find any relevant sections in the document to answer your question."}
         
     context = "\n\n".join(context_parts)
-    return await answer_question(query, context, model)
+    return {"context": context_parts, "answer": await answer_question(query, context, model)}
 
 async def query_loop(results_dir: str, model: str):
     """Main interactive loop for querying."""
