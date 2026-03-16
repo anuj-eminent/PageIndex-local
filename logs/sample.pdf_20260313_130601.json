@@ -1,0 +1,133 @@
+[
+  {
+    "total_page_number": 8
+  },
+  {
+    "total_token": 9124
+  },
+  {
+    "toc_content": null,
+    "toc_page_list": [],
+    "page_index_given_in_toc": "no"
+  },
+  {
+    "message": "len(group_texts): 1"
+  },
+  {
+    "message": "generate_toc: [{'structure': '1', 'title': 'INTRODUCTION', 'physical_index': '<physical_index_1>'}, {'structure': '2', 'title': 'LITERATURE REVIEW', 'physical_index': '<physical_index_2>'}, {'structure': '2.A', 'title': 'Image acquisition', 'physical_index': '<physical_index_2>'}, {'structure': '2.B', 'title': 'Pre-Processing', 'physical_index': '<physical_index_2>'}, {'structure': '2.C', 'title': 'Segmentation of Image', 'physical_index': '<physical_index_2>'}, {'structure': '2.D', 'title': 'Feature Extraction', 'physical_index': '<physical_index_2>'}, {'structure': '2.E', 'title': 'Image Classification', 'physical_index': '<physical_index_2>'}, {'structure': '3', 'title': 'METHODOLOGY', 'physical_index': '<physical_index_3>'}, {'structure': '3.A', 'title': 'Extraction of features using DWT', 'physical_index': '<physical_index_3>'}, {'structure': '3.B', 'title': 'Extraction of textures using GLCMs', 'physical_index': '<physical_index_3>'}, {'structure': '3.C', 'title': 'Equation Selection of features using PCA', 'physical_index': '<physical_index_3>'}, {'structure': '3.D', 'title': 'Using the Probabilistic Neural Network (PNN) Classification', 'physical_index': '<physical_index_3>'}, {'structure': '4', 'title': 'EXPERIMENTAL RESULT AND DISCUSSION', 'physical_index': '<physical_index_5>'}, {'structure': '5', 'title': 'CONCLUSION', 'physical_index': '<physical_index_6>'}, {'structure': '6', 'title': 'ACKNOWLEDGMENT', 'physical_index': '<physical_index_6>'}, {'structure': '6.A', 'title': 'Financial Support', 'physical_index': '<physical_index_6>'}, {'structure': '6.B', 'title': 'Competing interests/conflicts of interest', 'physical_index': '<physical_index_6>'}, {'structure': '6.C', 'title': \"Authors' contributions\", 'physical_index': '<physical_index_6>'}, {'structure': '7', 'title': 'REFERENCES', 'physical_index': '<physical_index_7>'}, {'structure': '8', 'title': 'AUTHORS\u2019 PROFILE', 'physical_index': '<physical_index_8>'}]"
+  },
+  {
+    "message": "convert_physical_index_to_int: [{'structure': '1', 'title': 'INTRODUCTION', 'physical_index': 1}, {'structure': '2', 'title': 'LITERATURE REVIEW', 'physical_index': 2}, {'structure': '2.A', 'title': 'Image acquisition', 'physical_index': 2}, {'structure': '2.B', 'title': 'Pre-Processing', 'physical_index': 2}, {'structure': '2.C', 'title': 'Segmentation of Image', 'physical_index': 2}, {'structure': '2.D', 'title': 'Feature Extraction', 'physical_index': 2}, {'structure': '2.E', 'title': 'Image Classification', 'physical_index': 2}, {'structure': '3', 'title': 'METHODOLOGY', 'physical_index': 3}, {'structure': '3.A', 'title': 'Extraction of features using DWT', 'physical_index': 3}, {'structure': '3.B', 'title': 'Extraction of textures using GLCMs', 'physical_index': 3}, {'structure': '3.C', 'title': 'Equation Selection of features using PCA', 'physical_index': 3}, {'structure': '3.D', 'title': 'Using the Probabilistic Neural Network (PNN) Classification', 'physical_index': 3}, {'structure': '4', 'title': 'EXPERIMENTAL RESULT AND DISCUSSION', 'physical_index': 5}, {'structure': '5', 'title': 'CONCLUSION', 'physical_index': 6}, {'structure': '6', 'title': 'ACKNOWLEDGMENT', 'physical_index': 6}, {'structure': '6.A', 'title': 'Financial Support', 'physical_index': 6}, {'structure': '6.B', 'title': 'Competing interests/conflicts of interest', 'physical_index': 6}, {'structure': '6.C', 'title': \"Authors' contributions\", 'physical_index': 6}, {'structure': '7', 'title': 'REFERENCES', 'physical_index': 7}, {'structure': '8', 'title': 'AUTHORS\u2019 PROFILE', 'physical_index': 8}]"
+  },
+  {
+    "mode": "process_toc_with_page_numbers",
+    "accuracy": 0.7,
+    "incorrect_results": [
+      {
+        "list_index": 6,
+        "answer": "no",
+        "title": "Image Classification",
+        "page_number": 2
+      },
+      {
+        "list_index": 11,
+        "answer": "no",
+        "title": "Using the Probabilistic Neural Network (PNN) Classification",
+        "page_number": 3
+      },
+      {
+        "list_index": 14,
+        "answer": "no",
+        "title": "ACKNOWLEDGMENT",
+        "page_number": 6
+      },
+      {
+        "list_index": 15,
+        "answer": "no",
+        "title": "Financial Support",
+        "page_number": 6
+      },
+      {
+        "list_index": 16,
+        "answer": "no",
+        "title": "Competing interests/conflicts of interest",
+        "page_number": 6
+      },
+      {
+        "list_index": 17,
+        "answer": "no",
+        "title": "Authors' contributions",
+        "page_number": 6
+      }
+    ]
+  },
+  {
+    "message": "incorrect_results_and_range_logs: [{'list_index': 6, 'title': 'Image Classification', 'prev_correct': 2, 'next_correct': 3}, {'list_index': 11, 'title': 'Using the Probabilistic Neural Network (PNN) Classification', 'prev_correct': 3, 'next_correct': 5}, {'list_index': 14, 'title': 'ACKNOWLEDGMENT', 'prev_correct': 6, 'next_correct': 7}, {'list_index': 15, 'title': 'Financial Support', 'prev_correct': 6, 'next_correct': 7}, {'list_index': 16, 'title': 'Competing interests/conflicts of interest', 'prev_correct': 6, 'next_correct': 7}, {'list_index': 17, 'title': \"Authors' contributions\", 'prev_correct': 6, 'next_correct': 7}]"
+  },
+  {
+    "message": "invalid_results: []"
+  },
+  {
+    "message": "Checking title appearance in start concurrently"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with journal information, article title, authors, abstract, and index terms before the line 'I. INTRODUCTION'. Since there is substantial content preceding the 'INTRODUCTION' heading, the section does not start at the very beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and article content before any occurrence of the section title. The title 'LITERATURE REVIEW' (appearing as 'II. LITERATURE REVIEW') is found later in the text, after introductory paragraphs and other sections, indicating that there is preceding content. Therefore, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and introductory content, not with the title 'Image acquisition'. The title does not appear at the very start (or at all) of the provided text, indicating other content precedes it.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': 'The page_text begins with bibliographic and introductory content, not with the title \"Pre-Processing\". The phrase \"B. Pre-Processing\" appears later in the text, indicating other content precedes it.', 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with citation and technical content, and nowhere does it start with or contain the exact phrase 'Segmentation of Image' (ignoring spacing). Therefore, the given section title does not appear at the beginning of the provided text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and introductory content, and the phrase 'Feature Extraction' only appears later under the subsection heading 'D. Feature Extraction'. Therefore, the section title does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with citation and article content about brain MRI tumor detection; there is no occurrence of the section title 'Image Classification' at the very start (or anywhere clearly), so the section does not start at the beginning of the provided text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and introductory content, not the section title. The phrase 'III. METHODOLOGY' appears later, after several paragraphs and figures, indicating that the section does not start at the beginning of the text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and introductory content, and the phrase 'Extraction of features using DWT' only appears later (as a bullet point and a subsection heading). Therefore the section title is not the first content in the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication information and other content before any mention of the section title. The phrase 'Extraction of textures using GLCM' appears later in a bullet list, not at the very start. Therefore, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication information and other content before any section heading. The given section title 'Equation Selection of features using PCA.' does not appear at the very start; it only appears later as a bullet point 'Selection of features using PCA' under the methodology. Therefore, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': 'The page_text begins with bibliographic information and introductory content about wavelet transforms and image classification. The exact section title \"Using the Probabilistic Neural Network (PNN) Classification\" does not appear at the very start; it is not present as the first line nor does any line match it closely at the beginning. Therefore, the section does not start at the beginning of the given page_text.', 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with a header and other content before the phrase 'EXPERIMENTAL RESULT AND DISCUSSION' (it appears in 'Fig 8. Architecture of PNN IV. EXPERIMENTAL RESULT AND DISCUSSION'), so the section does not start at the very beginning.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with multiple tables, figures, and discussion content before any occurrence of the section title. The title 'CONCLUSION' appears later in the text as part of 'V. CONCLUSION', indicating that there is substantial preceding material. Therefore, the CONCLUSION section does not start at the very beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication details and tables, and there is no occurrence of the title 'ACKNOWLEDGMENT' at the start (or anywhere) of the provided text. Hence, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The provided page_text consists of technical content about medical imaging, tables, figures, and conclusions, with no occurrence of the section title 'Financial Support' at the very start or anywhere within the text. Since the section title is absent and there is preceding content unrelated to it, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with journal information and tables, and there is no occurrence of the section title 'Competing interests/conflicts of interest' near the start or anywhere in the provided excerpt. Therefore, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': 'The page_text begins with publication information, tables, and content related to results and conclusions. There is no occurrence of the section title \"Authors\\' contributions\" at the start (or anywhere) of the provided text, even accounting for fuzzy matching and spacing variations.', 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with article metadata and several paragraphs about the study, followed by an ACKNOWLEDGMENT section. The title 'REFERENCES' appears much later, after the acknowledgment and preceding the list of citations. Since there is substantial content before the word 'REFERENCES', the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic information ('8 IEEE TRANSACT IONS ON MEDICAL IMAGING, TechRxiv, DECEMBER 2022') before the line 'AUTHORS\u2019 PROFILE'. Since there is content preceding the section title, the section does not start at the very beginning of the page_text.\", 'start_begin': 'no'}"
+  }
+]

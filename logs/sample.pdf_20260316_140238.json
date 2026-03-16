@@ -1,0 +1,109 @@
+[
+  {
+    "total_page_number": 8
+  },
+  {
+    "total_token": 9124
+  },
+  {
+    "toc_content": null,
+    "toc_page_list": [],
+    "page_index_given_in_toc": "no"
+  },
+  {
+    "message": "len(group_texts): 1"
+  },
+  {
+    "message": "generate_toc: [{'structure': '1', 'title': 'I. INTRODUCTION', 'physical_index': '<physical_index_1>'}, {'structure': '2', 'title': 'II. LITERATURE REVIEW', 'physical_index': '<physical_index_2>'}, {'structure': '2.1', 'title': 'A. Image acquisition', 'physical_index': '<physical_index_2>'}, {'structure': '2.2', 'title': 'B. Pre-Processing', 'physical_index': '<physical_index_2>'}, {'structure': '2.3', 'title': 'C. Segmentation of Image', 'physical_index': '<physical_index_2>'}, {'structure': '2.4', 'title': 'D. Feature Extraction', 'physical_index': '<physical_index_2>'}, {'structure': '2.5', 'title': 'E. Image Classification', 'physical_index': '<physical_index_2>'}, {'structure': '3', 'title': 'III. METHODOLOGY', 'physical_index': '<physical_index_3>'}, {'structure': '3.1', 'title': 'A. Extraction of features using DWT', 'physical_index': '<physical_index_3>'}, {'structure': '3.2', 'title': 'B. Extraction of textures using GLCMs', 'physical_index': '<physical_index_3>'}, {'structure': '3.3', 'title': 'C. Equation Selection of features using PCA', 'physical_index': '<physical_index_3>'}, {'structure': '3.4', 'title': 'D. Using the Probabilistic Neural Network (PNN) Classification', 'physical_index': '<physical_index_3>'}, {'structure': '4', 'title': 'IV. EXPERIMENTAL RESULT AND DISCUSSION', 'physical_index': '<physical_index_4>'}, {'structure': '5', 'title': 'V. CONCLUSION', 'physical_index': '<physical_index_5>'}]"
+  },
+  {
+    "message": "convert_physical_index_to_int: [{'structure': '1', 'title': 'I. INTRODUCTION', 'physical_index': 1}, {'structure': '2', 'title': 'II. LITERATURE REVIEW', 'physical_index': 2}, {'structure': '2.1', 'title': 'A. Image acquisition', 'physical_index': 2}, {'structure': '2.2', 'title': 'B. Pre-Processing', 'physical_index': 2}, {'structure': '2.3', 'title': 'C. Segmentation of Image', 'physical_index': 2}, {'structure': '2.4', 'title': 'D. Feature Extraction', 'physical_index': 2}, {'structure': '2.5', 'title': 'E. Image Classification', 'physical_index': 2}, {'structure': '3', 'title': 'III. METHODOLOGY', 'physical_index': 3}, {'structure': '3.1', 'title': 'A. Extraction of features using DWT', 'physical_index': 3}, {'structure': '3.2', 'title': 'B. Extraction of textures using GLCMs', 'physical_index': 3}, {'structure': '3.3', 'title': 'C. Equation Selection of features using PCA', 'physical_index': 3}, {'structure': '3.4', 'title': 'D. Using the Probabilistic Neural Network (PNN) Classification', 'physical_index': 3}, {'structure': '4', 'title': 'IV. EXPERIMENTAL RESULT AND DISCUSSION', 'physical_index': 4}, {'structure': '5', 'title': 'V. CONCLUSION', 'physical_index': 5}]"
+  },
+  {
+    "mode": "process_toc_with_page_numbers",
+    "accuracy": 0.6428571428571429,
+    "incorrect_results": [
+      {
+        "list_index": 6,
+        "answer": "no",
+        "title": "E. Image Classification",
+        "page_number": 2
+      },
+      {
+        "list_index": 9,
+        "answer": "no",
+        "title": "B. Extraction of textures using GLCMs",
+        "page_number": 3
+      },
+      {
+        "list_index": 11,
+        "answer": "no",
+        "title": "D. Using the Probabilistic Neural Network (PNN) Classification",
+        "page_number": 3
+      },
+      {
+        "list_index": 12,
+        "answer": "no",
+        "title": "IV. EXPERIMENTAL RESULT AND DISCUSSION",
+        "page_number": 4
+      },
+      {
+        "list_index": 13,
+        "answer": "no",
+        "title": "V. CONCLUSION",
+        "page_number": 5
+      }
+    ]
+  },
+  {
+    "message": "incorrect_results_and_range_logs: [{'list_index': 6, 'title': 'E. Image Classification', 'prev_correct': 2, 'next_correct': 3}, {'list_index': 9, 'title': 'B. Extraction of textures using GLCMs', 'prev_correct': 3, 'next_correct': 3}, {'list_index': 11, 'title': 'D. Using the Probabilistic Neural Network (PNN) Classification', 'prev_correct': 3, 'next_correct': 8}, {'list_index': 12, 'title': 'IV. EXPERIMENTAL RESULT AND DISCUSSION', 'prev_correct': 3, 'next_correct': 8}, {'list_index': 13, 'title': 'V. CONCLUSION', 'prev_correct': 3, 'next_correct': 8}]"
+  },
+  {
+    "message": "invalid_results: []"
+  },
+  {
+    "message": "Checking title appearance in start concurrently"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with journal information, article title, author list, abstract, and index terms before the occurrence of the section title. Since there is substantial content preceding 'I. INTRODUCTION', the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': 'The page_text begins with bibliographic and article content, including a discussion of medical imaging techniques, before the line \"II. LITERATURE REVIEW\" appears later. Since there is substantial preceding text, the section title does not start at the very beginning of the page_text.', 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and other content, and the first section title encountered is later (e.g., 'E. Image Classification' and 'A. Extraction of features using DWT'), not the target title 'A. Image acquisition.'. Therefore the target section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text starts with publication info, an abstract, and earlier sections (e.g., II. LITERATURE REVIEW, A. Image acquisition) before the occurrence of the 'B. Pre-Processing' heading. Therefore, the section does not begin at the start of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and introductory content about IEEE Transactions, detection methods, and a literature review. The section title 'C. Segmentation of Image' only appears later, after earlier sections A, B, figures, and other text. Since there is substantial content preceding the title, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': 'The page_text begins with bibliographic info and multiple preceding sections (e.g., II. LITERATURE REVIEW, A. Image acquisition, B. Pre-Processing, C. Segmentation). The title \"D. Feature Extraction\" appears later, after those sections, so it is not the first content.', 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication information and then discusses detection, invasive approaches, and a wavelet-based classification method, followed by 'II. LITERATURE REVIEW' and subsections A, B, C, D. There is no occurrence of the title 'E. Image Classification' at the very start (or anywhere near the beginning) of the provided text, so the section does not start the page.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication info and tables, not with the section title. 'III. METHODOLOGY.' does not appear at the very start (or anywhere) of the provided text; other content precedes any potential section heading.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication information and several preceding sections (including 'III. METHODOLOGY', bullet points, and other headings) before the line 'A. Extraction of features using DWT' appears later in the text. Therefore, the section title does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with publication information and introductory content, not with the section title. The title 'B. Extraction of textures using GLCMs.' (or a close fuzzy match) appears later in the text as a bullet point under the methodology, not at the very beginning.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic and article content, not with the section title. The first occurrence related to PCA is later in a bullet list ('Selection of features using PCA'), but there is substantial preceding text, so the section does not start at the beginning.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with a header and introductory content about IEEE Transactions and wavelet features, not with the section title. The title 'D. Using the Probabilistic Neural Network (PNN) Classification.' does not appear at the very start of the provided text, and earlier content precedes it, indicating the section does not start at the beginning.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic information and technical content about wavelets, GLCMs, PCA, etc., and does not contain the section title 'IV. EXPERIMENTAL RESULT AND DISCUSSION.' at its start. Since there is other content before any occurrence of the title, the section does not start at the beginning of the page_text.\", 'start_begin': 'no'}"
+  },
+  {
+    "message": "Response: {'thinking': \"The page_text begins with bibliographic information and then proceeds to the 'IV. EXPERIMENTAL RESULT AND DISCUSSION' section. The target section title 'V. CONCLUSION.' does not appear at the very start of the page_text (or even later in the excerpt). Therefore, the current section does not start at the beginning of the given page_text.\", 'start_begin': 'no'}"
+  }
+]

@@ -6,13 +6,10 @@ from Knowledge_Graph.app.services.ans_question import AnswerQuestion
 
 def build_graph(pdf_path: str):
     chunks = chunk_text(extract_text_from_pdf(pdf_path))
+    print
     triples = []
     for chunk in chunks:
         triples.extend(extract_triples_from_chunk(chunk))
-
-    print(triples)
-
-
     kg = Neo4jKG()
 
     for t in triples:
@@ -23,5 +20,4 @@ def build_graph(pdf_path: str):
         )
 
     kg.close()
-    print("\n\n\n\n\n Saviung \n\n\n\n\n")
     AnswerQuestion().save_nodes_embedding()

@@ -3,7 +3,7 @@ import asyncio
 
 class PageIndex:
     def __init__(self):
-        self.results = load_results(r"PageIndex_Logic\results\Brain Tumor MRI.json")
+        self.results = load_results(r"PageIndex_Logic\results\sample_structure.json")
 
     async def get_answer(self, query):
         return await answer_question_from_structure(
